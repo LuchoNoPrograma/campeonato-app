@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Formulario de registro</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Formulario</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Acerca de</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+
+      <h1>Buscar Persona por CI</h1>
+     
+      <form action="../buscar-persona-ci" method="post">
+
+        <div class="form-group">
+          <input type="text" class="form-control" name="ci" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+
+      <hr>
+
+      <h1>Formulario de registro</h1>
+
+      
+      <form id="myForm" onsubmit="event.preventDefault(); showSuccessNotification();" action="../guardar-persona" method="post">
+
+        <input type="hidden" th:field="${per.id_persona}">
+
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" th:field="${per.nombre}" required>
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" class="form-control" th:field="${per.apellido}" required>
+        </div>
+        <div class="form-group">
+          <label for="ci">CI</label>
+          <input type="text" class="form-control" th:field="${per.ci}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+
+
+
+      <br>
+      <h2>Resultados</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th >Apellido</th>
+            <th >CI</th>
+            <th >Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí se mostrarán los resultados del formulario -->
+          <tr th:each="p : ${personas}" th:if="${p.estado_persona != 'X'}">
+            <td th:text="${p.nombre}"></td>
+            <td th:text="${p.apellido}"></td>
+            <td th:text="${p.ci}"></td>
+            <td>
+              <a th:onclick="'confirmDelete('+ ${p.id_persona} +')'" class="btn btn-danger">ELIMINAR</a>
+
+              <a class="btn btn-warning" th:href="'../modificar-persona/' + ${p.id_persona}">MODIFICAR</a>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO+K+ytniqko32cKl5QA9gWHJzyJQ7G68hJhcvn0wXQhoPv/zyQ7ifi8M7oShpL" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
+    <script>
+      function showSuccessNotification() {
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'El formulario ha sido enviado correctamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            document.getElementById("myForm").submit();
+          }
+        });
+      }
+    </script>
+
+    <script>
+      function confirmDelete(id) {
+        Swal.fire({
+          title: '¿Está seguro?',
+          text: 'Esta acción eliminará el registro permanentemente.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Aceptar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '../eliminar-persona/' + id;
+            // Aquí puedes ejecutar la acción de eliminar
+            // Por ejemplo, llamar a una función o enviar una solicitud al servidor
+            deleteRecord();
+          } else {
+            // Aquí puedes realizar alguna otra acción si el usuario cancela
+            // Por ejemplo, mostrar un mensaje de cancelación
+            cancelDelete();
+          }
+        });
+      }
+
+      function deleteRecord() {
+        // Código para eliminar el registro
+        console.log('Registro eliminado');
+      }
+
+      function cancelDelete() {
+        // Código para cancelar la eliminación
+        console.log('Eliminación cancelada');
+      }
+    </script>
+
+
+  </body>
+</html>

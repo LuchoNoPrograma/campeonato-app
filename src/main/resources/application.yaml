@@ -1,0 +1,27 @@
+server:
+  port: 7070
+
+spring:
+  h2:
+    console:
+      enabled: true
+      url: '/h2-console'
+
+  datasource:
+    generate-unique-name: false
+    #url: jdbc:h2:mem:testdb
+    #;MODE=PostgreSQL
+    url: jdbc:h2:file:./src/main/resources/data/database;MODE=PostgreSQL;DATABASE_TO_LOWER=true;AUTO_SERVER=true
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    #database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+       mode: always
