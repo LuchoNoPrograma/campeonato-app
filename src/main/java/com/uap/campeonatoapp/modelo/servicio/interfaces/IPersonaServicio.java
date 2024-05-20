@@ -11,4 +11,6 @@ public interface IPersonaServicio {
     List<Persona> listarPersonas();
 
     Persona buscarPersonaPorIdPersona(Long idPersona);
+
+    Persona buscarPersonaPorDni(String dni);
 }

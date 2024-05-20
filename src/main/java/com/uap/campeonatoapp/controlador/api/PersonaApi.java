@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,10 +26,24 @@ public class PersonaApi {
     }
 
     @GetMapping("/{idPersona}")
-    public ResponseEntity<PersonaDto> buscarPersonaPorIdPersona(Long idPersona) {
+    public ResponseEntity<PersonaDto> buscarPersonaPorIdPersona(@PathVariable Long idPersona) {
         Persona persona = personaServicio.buscarPersonaPorIdPersona(idPersona);
         return ResponseEntity.status(HttpStatus.OK).body(this.entidadADto(persona));
     }
+
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<PersonaDto> buscarPersonaPorDni(@PathVariable String dni) {
+        Persona persona = personaServicio.buscarPersonaPorDni(dni);
+        return ResponseEntity.status(HttpStatus.OK).body(this.entidadADto(persona));
+    }
+
+    @PostMapping
+    public ResponseEntity<PersonaDto> guardarPersona(@RequestBody PersonaDto personaDto) {
+        Persona persona = this.dtoAEntidad(personaDto);
+        Persona personaGuardada = personaServicio.guardar(persona);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.entidadADto(personaGuardada));
+    }
+
 
     private PersonaDto entidadADto(Persona persona) {
         return modelMapper.map(persona, PersonaDto.class);

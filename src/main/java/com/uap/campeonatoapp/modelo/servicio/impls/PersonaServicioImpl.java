@@ -28,4 +28,9 @@ public class PersonaServicioImpl implements IPersonaServicio {
     public Persona buscarPersonaPorIdPersona(Long idPersona) {
         return personaDao.findById(idPersona).orElse(null);
     }
+
+    @Override
+    public Persona buscarPersonaPorDni(String dni) {
+        return personaDao.buscarPorDni(dni).orElse(null);
+    }
 }
