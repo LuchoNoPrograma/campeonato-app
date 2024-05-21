@@ -1,0 +1,93 @@
+@use "@angular/material" as angular-material;
+@include angular-material.core();
+
+$mat-primary: (
+  100: white,
+  500: #1e88e5,
+  700: #1e88e5,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
+  ),
+);
+$mat-secondary: (
+  100: white,
+  500: #26c6da,
+  700: #26c6da,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
+  ),
+);
+
+$mat-warn: (
+  100: FDEDE8,
+  500: #e91e63,
+  700: #e91e63,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
+  ),
+);
+
+$theme-primary: angular-material.define-palette($mat-primary, 500);
+$theme-accent: angular-material.define-palette($mat-secondary, 500);
+$theme-warn: angular-material.define-palette($mat-warn, 500);
+
+$tema-azul: angular-material.define-light-theme(
+    (
+      color: (
+        primary: $theme-primary,
+        accent: $theme-accent,
+        warn: $theme-warn,
+      ),
+      typography:
+      angular-material.define-typography-config(
+        $font-family: "Poppins",
+        $subtitle-2: angular-material.define-typography-level(14px, 14px, 400),
+        $subtitle-1: angular-material.define-typography-level(21px, 26px, 500),
+        $headline-6: angular-material.define-typography-level(18px, 26px, 500),
+        $headline-5: angular-material.define-typography-level(24px, 30px, 700),
+        $button: angular-material.define-typography-level(14px, 14px, 400),
+        $body-1: angular-material.define-typography-level(14px, 20px, 400),
+        $body-2: angular-material.define-typography-level(16px, 22px, 400),
+      ),
+    )
+);
+
+.bg-primary,
+.topbar {
+  background: angular-material.get-color-from-palette($theme-primary, 500) !important;
+}
+
+.topbar .mat-mdc-icon-button,
+.topbar .mat-mdc-button {
+  color: $white !important;
+}
+
+.horizontal-navbar .parentBox.pactive > a,
+.horizontal-navbar .parentBox.pactive > a:hover,
+.horizontal-navbar .parentBox.pactive:hover > a {
+  background-color: angular-material.get-color-from-palette($theme-accent, 500) !important;
+}
+
+.activeMenu {
+  background-color: angular-material.get-color-from-palette($theme-accent, 500) !important;
+}
+
+
+// outline button border
+.mat-mdc-outlined-button {
+  &.mat-primary{
+    border-color: angular-material.get-color-from-palette($theme-primary, 500) !important;
+  }
+  &.mat-accent{
+    border-color: angular-material.get-color-from-palette($theme-accent, 500) !important;
+  }
+  &.mat-warn{
+    border-color: angular-material.get-color-from-palette($theme-warn, 500) !important;
+  }
+}

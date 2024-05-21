@@ -1,0 +1,14 @@
+//Importar los estilos de angular material (booststrap con esteroides)
+@use "@angular/material" as angular-material;
+//Traemos todos sus estilos de angular material
+@include angular-material.core();
+
+//Importamos nuestros archivos scss
+@import "./variables.scss";
+@import "./temas.scss";
+@import "./container.scss";
+
+@import "./layout/full-layout/sidebar.scss";
+
+//Configuracion de los colores de angular material con nuestro tema azul del archivo temas.scss
+@include angular-material.all-component-colors($tema-azul);
