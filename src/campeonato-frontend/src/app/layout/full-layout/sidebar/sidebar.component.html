@@ -1,0 +1,56 @@
+<div class="flex">
+  <div
+    class="user-profile profile-bar"
+  >
+    <!--style="background: url(assets/images/backgrounds/user-info.jpg) no-repeat"-->
+
+    <div class="profile-img">
+      <!--<img
+        src="assets/images/profile/profile.png"
+        alt="user"
+        width="50"
+        class="rounded-circle"
+      />-->
+    </div>
+    <div class="profile-text">
+      <a
+        [matMenuTriggerFor]="menuPerfil"
+        class="d-flex align-items-center text-white w-100 f-s-16"
+      >
+        Usuario de Prueba
+        <i-tabler class="icon-18 m-l-auto" name="chevron-down"></i-tabler>
+      </a>
+    </div>
+
+    <mat-menu
+      #menuPerfil="matMenu"
+      class="cardWithShadow profile-dd"
+      xPosition="after"
+    >
+      <button mat-menu-item>
+        <mat-icon class="d-flex align-items-center">
+          <i-tabler class="icon-18 d-flex" name="settings"></i-tabler>
+        </mat-icon>
+        Ajustes
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="d-flex align-items-center">
+          <i-tabler class="icon-18 d-flex" name="users"></i-tabler>
+        </mat-icon>
+        Perfil
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="d-flex align-items-center">
+          <i-tabler class="icon-18 d-flex" name="bell-off"></i-tabler>
+        </mat-icon>
+        Desactivar notificaciones
+      </button>
+      <a [routerLink]="['/authentication/side-login']" mat-menu-item>
+        <mat-icon class="d-flex align-items-center">
+          <i-tabler class="icon-18 d-flex" name="logout"></i-tabler>
+        </mat-icon>
+        Cerrar sesión
+      </a>
+    </mat-menu>
+  </div>
+</div>
